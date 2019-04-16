@@ -2,56 +2,48 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import axios from 'axios'
-
-
-class AllBooks extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      booksArr: []
-    }
-  }
-  try {
-    const books = await axios.get(`/api/books`)
-  } catch (authError) {
-    return dispatch(getBooks({error: authError}))
-  }
-
-  try {
-    dispatch(getBooks(res.data))
-    history.push('/home')
-  } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
-  }
-}
-
+import SingleBook from './SingleBook'
 
 /**
  * COMPONENT
  */
-export const AllBooks = () => {
+
+export const AllBooks = props => {
+  const {booksArr} = props
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      {booksArr.map(book => {
+        return (
+          <div key={`book-${book.id}`}>
+            <SingleBook
+              imgUrl={book.imgUrl}
+              title={book.title}
+              price={book.price}
+              description={book.description}
+            />
+          </div>
+        )
+      })}
     </div>
   )
 }
+
 /**
  * CONTAINER
  */
 
 const mapState = state => {
   return {
-    email: state.user.email
+    booksArr: state.booksArr
   }
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapState)(AllBooks)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
-  email: PropTypes.string
+AllBooks.propTypes = {
+  booksArr: PropTypes.array
 }
