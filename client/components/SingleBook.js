@@ -1,4 +1,5 @@
 export const SingleBook = props => {
+  const {title, imgUrl, price, description} = props
   return (
     <div>
       <h2>{title}</h2>
