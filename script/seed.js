@@ -11,17 +11,20 @@ async function seed() {
     Book.create({
       title: 'Cornell University',
       imageUrl: 'https://tinyurl.com/y3y5c9wj',
-      price: 5.99
+      price: 5.99,
+      description: 'GREAT BOOK! READ IT!'
     }),
     Book.create({
       title: 'Johns Hopkins University',
       imageUrl: 'https://tinyurl.com/y3wrug7u',
-      price: 20
+      price: 20,
+      description: 'GREAT BOOK! READ IT!'
     }),
     Book.create({
       title: 'Wellesley College',
       imageUrl: 'https://tinyurl.com/y6zlp5pd',
-      price: 10.1
+      price: 10.1,
+      description: 'GREAT BOOK! READ IT!'
     })
   ])
 
@@ -33,24 +36,21 @@ async function seed() {
   ])
 
   const orders = await Promise.all([
-    Order.create({date: sequelize.fn('NOW')})
-    .then(async(order) =>  {
-      await order.setUser(users[0]);
-      await order.addBooks([books[0], books[1]]);
+    Order.create({date: sequelize.fn('NOW')}).then(async order => {
+      await order.setUser(users[0])
+      await order.addBooks([books[0], books[1]])
     }),
-    Order.create({date: sequelize.fn('NOW')})
-    .then(async(order) =>  {
-      await order.setUser(users[1]);
-      await order.addBook(books[2]);
-    }),
-   
+    Order.create({date: sequelize.fn('NOW')}).then(async order => {
+      await order.setUser(users[1])
+      await order.addBook(books[2])
+    })
+
     // Order.create({email: 'murphy@email.com', password: '123'})
   ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
-
 }
 
 // We've separated the `seed` function from the `runSeed` function.
