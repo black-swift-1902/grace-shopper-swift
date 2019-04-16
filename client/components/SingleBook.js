@@ -1,4 +1,6 @@
-export const SingleBook = props => {
+import React from 'react'
+
+const SingleBook = props => {
   const {title, imgUrl, price, description} = props
   return (
     <div>
@@ -9,3 +11,5 @@ export const SingleBook = props => {
     </div>
   )
 }
+
+export default SingleBook
