@@ -1,4 +1,6 @@
 const User = require('./user')
+const Order = require('./order');
+const Book = require('./book');
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -6,9 +8,7 @@ const User = require('./user')
  *
  *    BlogPost.belongsTo(User)
  */
-const Order = require('./order');
-const Book = require('./book');
-const User = require('./user');
+
 Book.belongsTo(Order)
 Order.hasMany(Book)
 Order.belongsTo(User)

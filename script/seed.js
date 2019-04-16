@@ -1,8 +1,8 @@
 'use strict'
 
 const db = require('../server/db')
-const {Book} = require('../server/db/models')
-
+const {Book, Order, User} = require('../server/db/models')
+const sequelize = require('sequelize')
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
@@ -27,13 +27,30 @@ const books = await Promise.all([
 
     console.log(`seeded ${books.length} books`)
 
-  // const users = await Promise.all([
-  //   User.create({email: 'cody@email.com', password: '123'}),
-  //   User.create({email: 'murphy@email.com', password: '123'})
-  // ])
+  const users = await Promise.all([
+    User.create({email: 'cody@email.com', password: '123'}),
+    User.create({email: 'murphy@email.com', password: '123'})
+  ])
 
-  // console.log(`seeded ${users.length} users`)
+  const orders = await Promise.all([
+    Order.create({date: sequelize.fn('NOW')})
+    .then(async(order) =>  {
+      await order.setUser(users[0]);
+      await order.addBooks([books[0], books[1]]);
+    }),
+    Order.create({date: sequelize.fn('NOW')})
+    .then(async(order) =>  {
+      await order.setUser(users[1]);
+      await order.addBook(books[2]);
+    }),
+   
+    // Order.create({email: 'murphy@email.com', password: '123'})
+  ])
+
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
+
 }
 
 // We've separated the `seed` function from the `runSeed` function.
