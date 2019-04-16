@@ -8,12 +8,13 @@ const GOT_BOOKS = 'GOT_BOOKS'
 /**
  * INITIAL STATE
  */
-const intialState = {booksArr: []}
+// const intialState = {booksArr: []}
+const booksArr = [];
 
 /**
  * ACTION CREATORS
  */
-const gotBooks = books => ({type: GET_BOOKS, books})
+const gotBooks = books => ({type: GOT_BOOKS, books})
 
 /**
  * THUNK CREATORS
@@ -30,10 +31,10 @@ export const getBooks = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = intialState, action) {
+export default function(state = booksArr, action) {
   switch (action.type) {
     case GOT_BOOKS:
-      return {...state, booksArr: action.books}
+      return action.books
     default:
       return state
   }
