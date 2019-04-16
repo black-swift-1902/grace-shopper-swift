@@ -34,6 +34,8 @@ async function seed() {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+  
+  console.log(`seeded ${users.length} users`)
 
   const orders = await Promise.all([
     Order.create({date: sequelize.fn('NOW')}).then(async order => {
@@ -44,11 +46,8 @@ async function seed() {
       await order.setUser(users[1])
       await order.addBook(books[2])
     })
-
-    // Order.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  console.log(`seeded ${users.length} users`)
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
 }
