@@ -14,10 +14,10 @@ export const UserHome = props => {
     </div>
   )
 }
-
 /**
  * CONTAINER
  */
+
 const mapState = state => {
   return {
     email: state.user.email
