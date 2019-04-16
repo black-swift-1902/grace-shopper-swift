@@ -5,6 +5,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const books = await Book.findAll()
+    console.log(books);
     res.json(books)
   } catch (err) {
     next(err)
@@ -13,7 +14,11 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    const singleBook = await Book.findById(req.params.id)
+    const singleBook = await Book.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
     res.json(singleBook)
   } catch (err) {
     next(err)
