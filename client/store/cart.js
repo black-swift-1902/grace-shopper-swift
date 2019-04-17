@@ -3,7 +3,7 @@ const ADD_BOOK = 'ADD_BOOK';
 const REMOVE_BOOK = 'REMOVE_BOOK';
 const SUBMIT_ORDER = 'SUBMIT_ORDER';
 
-initialState = {
+const initialState = {
     books: []
 }
 
