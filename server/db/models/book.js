@@ -10,7 +10,7 @@ const Book = db.define('book', {
   price: {
     type: Sequelize.DECIMAL(10, 2)
   },
-  imageUrl: {
+  imgUrl: {
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue:
