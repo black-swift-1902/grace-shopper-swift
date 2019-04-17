@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import SingleBook from './SingleBook'
 import {getBooks} from '../store'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
