@@ -13,11 +13,11 @@ router.get('/', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   try {
-    console.log('session',req.session.cart)
+    console.log('session: ',req.session.cart)
     req.session.cart.books.push(req.body.book);
     console.log('added!', req.session.cart)
     
-    res.status(200).send(req.session.cart)
+    res.sendStatus(200)
 
   } catch (err) {
     next(err)

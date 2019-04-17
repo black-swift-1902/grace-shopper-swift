@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getOneBook} from '../store'
 import {Link} from 'react-router-dom'
+import {addToCart} from '../store/cart'
 
 class SingleBook extends Component {
 
@@ -12,6 +13,7 @@ class SingleBook extends Component {
   }
   
   render() {
+    console.log(this.props);
     const {title, imgUrl, price, description} = this.props.selectBook
     return (
       <div>
@@ -19,6 +21,7 @@ class SingleBook extends Component {
         <img src={imgUrl} />
         <h4>{price}</h4>
         <p>{description}</p>
+        <button onClick = {() => this.props.addBookToCart(this.props.selectBook)}>Add To Cart</button>
       </div>
     )
   }
@@ -34,6 +37,10 @@ selectBook: state.selectBook
 const mapDispatch = dispatch => ({
   getOneBook: function(bookId) {
     return dispatch(getOneBook(bookId))
+  },
+  addBookToCart: function(book) {
+    console.log('bk!! ',book);
+    return dispatch(addToCart(book))
   }
 })
 
