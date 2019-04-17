@@ -12,7 +12,6 @@ class SingleBook extends Component {
   }
   
   render() {
-    console.log('here are props', this.props)
     const {title, imgUrl, price, description} = this.props.selectBook
     return (
       <div>
@@ -26,7 +25,6 @@ class SingleBook extends Component {
 }
 
 const mapState = state => {
-  console.log(state)
   return({
 
 selectBook: state.selectBook
