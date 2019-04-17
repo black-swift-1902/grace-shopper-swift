@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeBook } from '../store'
-import { submitOrder } from '../store'
+import { removeBook } from '../store/cart'
+import { submitOrder } from '../store/cart'
 /**
  * COMPONENT
  */
@@ -9,28 +9,31 @@ import { submitOrder } from '../store'
 class Checkout extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      books: []
-    };
+    // this.state = {
+    //   books: []
+    // };
   }
 
-  async componentDidMount() {
-    this.setState({books: this.props.books});
-  }
+  // async componentDidMount() {
+  //   this.setState({books: this.props.books});
+  // }
 
   render() {
-    // console.log(this.props)
+    console.log('we are on checkout page!')
     return (
+      
       <div>
-        {this.props.cart.books.map(book => {
+        {this.props.books.map(book => {
           return (
             <div key={`book-${book.id}`}>
               <h2>{book.title}</h2>
+              <button onClick = {() => this.props.removeBook(book)} >delete</button>
               <img src={book.imgUrl} />
               <h4>{book.price}</h4>
             </div>
           )
         })}
+        <button onClick = {() => this.props.submitOrder(this.props.books)} >Submit Order</button>
       </div>
     )
   }
@@ -44,8 +47,8 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch) => ({
-  removeBook: () => dispatch(removeBook()),
-  submitOrder: () => dispatch(submitOrder())
+  removeBook: (book) => dispatch(removeBook(book)),
+  submitOrder: (books) => dispatch(submitOrder(books))
 })
 
 
