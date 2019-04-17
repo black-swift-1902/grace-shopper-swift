@@ -5,6 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import books from './books'
 import selectBook from './selectBook'
+import cart from './cart'
 
 const reducer = combineReducers({user, books, selectBook, cart})
 
