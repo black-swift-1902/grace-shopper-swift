@@ -10,19 +10,19 @@ async function seed() {
   const books = await Promise.all([
     Book.create({
       title: 'Cornell University',
-      imageUrl: 'https://tinyurl.com/y3y5c9wj',
+      imgUrl: 'https://tinyurl.com/y3y5c9wj',
       price: 5.99,
       description: 'GREAT BOOK! READ IT!'
     }),
     Book.create({
       title: 'Johns Hopkins University',
-      imageUrl: 'https://tinyurl.com/y3wrug7u',
+      imgUrl: 'https://tinyurl.com/y3wrug7u',
       price: 20,
       description: 'GREAT BOOK! READ IT!'
     }),
     Book.create({
       title: 'Wellesley College',
-      imageUrl: 'https://tinyurl.com/y6zlp5pd',
+      imgUrl: 'https://tinyurl.com/y6zlp5pd',
       price: 10.1,
       description: 'GREAT BOOK! READ IT!'
     })
@@ -34,7 +34,7 @@ async function seed() {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
-  
+
   console.log(`seeded ${users.length} users`)
 
   const orders = await Promise.all([
