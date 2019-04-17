@@ -47,13 +47,11 @@ router.get('/:orderId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('back', req.body);
   const books = await Book.findAll({
     where: {
       id: req.body
     }
   })
-  console.log(books)
   try {
     await Order.create().then(async result => {
       await result.addBooks(books);

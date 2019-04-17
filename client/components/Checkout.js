@@ -19,7 +19,6 @@ class Checkout extends Component {
   // }
 
   render() {
-    console.log('we are on checkout page!')
     return (
       
       <div>
@@ -40,7 +39,7 @@ class Checkout extends Component {
 }
 
 const mapState = state => {
-  // console.log(state)
+
   return {
     books: state.cart.books
   }
