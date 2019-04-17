@@ -49,12 +49,13 @@ router.get('/:orderId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   const books = await Book.findAll({
     where: {
-      id: req.body
+      id: req.body.books
     }
   })
   try {
     await Order.create().then(async result => {
       await result.addBooks(books);
+      await result.setUser(req.body.user.id);
       res.status(201).send(result);
     })
   } catch (err) {

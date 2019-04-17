@@ -32,7 +32,7 @@ class Checkout extends Component {
             </div>
           )
         })}
-        <button onClick = {() => this.props.submitOrder(this.props.books)} >Submit Order</button>
+        <button onClick = {() => this.props.submitOrder(this.props.books, this.props.user)} >Submit Order</button>
       </div>
     )
   }
@@ -41,13 +41,14 @@ class Checkout extends Component {
 const mapState = state => {
 
   return {
-    books: state.cart.books
+    books: state.cart.books,
+    user: state.user
   }
 }
 
 const mapDispatch = (dispatch) => ({
   removeBook: (book) => dispatch(removeBook(book)),
-  submitOrder: (books) => dispatch(submitOrder(books))
+  submitOrder: (books, user) => dispatch(submitOrder(books, user))
 })
 
 

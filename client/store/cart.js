@@ -40,10 +40,14 @@ const clearCart = function(books) {
   }
 }
 
-export const submitOrder = function(books) {
-  return async dispatch => {
-    await axios.post('/api/orders', books.map(book => book.id))
-    dispatch(clearCart(books))
+export const submitOrder = function (books, user) {
+  return async (dispatch) => {
+    const order = {
+      user,
+      books: books.map(book => book.id)
+    }
+    await axios.post('/api/orders', order);
+    dispatch(clearCart(books));
   }
 }
 
