@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom'
 
 export class AllBooks extends Component {
   constructor(props) {
-    console.log('AllBooks')
     super(props)
     this.state = {
       booksArr: []
@@ -24,15 +23,17 @@ export class AllBooks extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         {this.props.booksArr.map(book => {
+          let id = book.id
           return (
-            <div key={`book-${book.id}`}>
+            <div key={`book-${id}`}>
+            <Link to={`/books/${id}`}>
                 <h1>{book.title}</h1>
                 <p><img src={book.imgUrl} /></p>
                 <h4>{book.price}</h4>
+            </Link>
             </div>
           )
         })}
@@ -46,7 +47,6 @@ export class AllBooks extends Component {
  */
 
 const mapState = state => {
-  console.log(state)
   return {
     booksArr: state.books
   }
