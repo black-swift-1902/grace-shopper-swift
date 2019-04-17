@@ -9,8 +9,9 @@ const Book = require('./book');
  *    BlogPost.belongsTo(User)
  */
 
-Book.belongsTo(Order)
-Order.hasMany(Book)
+Book.belongsToMany(Order, {through: 'order_log'})
+Order.belongsToMany(Book, {through: 'order_log'})
+
 Order.belongsTo(User)
 User.hasMany(Order)
 
