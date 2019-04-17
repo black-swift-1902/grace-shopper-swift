@@ -1,9 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import axios from 'axios'
-import SingleBook from './SingleBook'
 import {getBooks} from '../store'
+import { Link } from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -31,12 +30,9 @@ export class AllBooks extends Component {
         {this.props.booksArr.map(book => {
           return (
             <div key={`book-${book.id}`}>
-              <SingleBook
-                imgUrl={book.imgUrl}
-                title={book.title}
-                price={book.price}
-                description={book.description}
-              />
+                <h1>{book.title}</h1>
+                <p><img src={book.imgUrl} /></p>
+                <h4>{book.price}</h4>
             </div>
           )
         })}

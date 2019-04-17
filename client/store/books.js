@@ -8,7 +8,6 @@ const GOT_BOOKS = 'GOT_BOOKS'
 /**
  * INITIAL STATE
  */
-// const intialState = {booksArr: []}
 const booksArr = [];
 
 /**
