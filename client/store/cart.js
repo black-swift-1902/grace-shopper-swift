@@ -52,7 +52,8 @@ export const addToCart = function(book){
 export const getCartFromSession = function(){
   return async (dispatch) => {
     const books = await axios.get('/api/cart');
-    dispatch(loadCart(books));
+    console.log('thunk books', books.data);
+    dispatch(loadCart(books.data));
   }
 }
 

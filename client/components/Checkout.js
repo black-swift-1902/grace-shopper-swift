@@ -22,10 +22,12 @@ class Checkout extends Component {
   }
 
   render() {
+    const {books} = this.props;
+    if(!books) books = [];
     return (
       
       <div>
-        {this.props.books.map(book => {
+        {books.map(book => {
           return (
             <div key={`book-${book.id}`}>
               <h2>{book.title}</h2>
@@ -50,7 +52,7 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch) => ({
-  loadCart: () => dispatch(getCartFromSession),
+  loadCart: () => dispatch(getCartFromSession()),
   removeBook: (book) => dispatch(removeBook(book)),
   submitOrder: (books, user) => dispatch(submitOrder(books, user))
 })
