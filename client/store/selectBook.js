@@ -38,6 +38,6 @@ export default function(state = {}, action) {
     case GOT_ONE_BOOK:
       return action.book
     default:
-      return {}
+      return state;
   }
 }
