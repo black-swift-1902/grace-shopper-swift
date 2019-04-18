@@ -43,7 +43,7 @@ export const addToCart = function(book){
   console.log('here!!! ');
   console.log('addToCartThunk', book);
   return async (dispatch) => {
-    await console.log('here!!!2 ');
+
     const books = await axios.post('/api/cart', book);
     dispatch(addBook(books));
   }
