@@ -64,6 +64,7 @@ export const submitOrder = function (books, user) {
       books: books.map(book => book.id)
     }
     await axios.post('/api/orders', order);
+    await axios.delete('/api/cart/clear');
     dispatch(clearCart(books));
   }
 }
