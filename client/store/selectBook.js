@@ -8,20 +8,20 @@ const GOT_ONE_BOOK = 'GOT_ONE_BOOK'
 /**
  * INITIAL STATE
  */
-const selectBook = {};
+const selectBook = {}
 
 /**
  * ACTION CREATORS
  */
 const gotOneBook = book => {
-    return({type: GOT_ONE_BOOK, book})
+  return {type: GOT_ONE_BOOK, book}
 }
 
 /**
  * THUNK CREATORS
  */
 
-export const getOneBook = (bookId) => async dispatch => {
+export const getOneBook = bookId => async dispatch => {
   try {
     const {data} = await axios.get(`/api/books/${bookId}`)
     return dispatch(gotOneBook(data))
