@@ -1,4 +1,4 @@
-// export const LOAD_CART = 'LOAD_CART';
+export const LOAD_CART = 'LOAD_CART';
 import axios from 'axios'
 const ADD_BOOK = 'ADD_BOOK'
 const REMOVE_BOOK = 'REMOVE_BOOK'
@@ -7,14 +7,6 @@ const CLEAR_CART = 'CLEAR_CART'
 const initialState = {
   books: []
 }
-
-//action creators
-// export const loadCart = function(books){
-//     return {
-//         type: LOAD_CART,
-//         books
-//     }
-// }
 
 /**
  * ACTION CREATORS
@@ -37,6 +29,31 @@ const clearCart = function(books) {
   return {
     type: CLEAR_CART,
     books
+  }
+}
+
+const loadCart = function(books){
+  return {
+      type: LOAD_CART,
+      books
+  }
+}
+
+export const addToCart = function(book){
+  console.log('here!!! ');
+  console.log('addToCartThunk', book);
+  return async (dispatch) => {
+    await console.log('here!!!2 ');
+    const books = await axios.post('/api/cart', book);
+    dispatch(addBook(books));
+  }
+}
+
+export const getCartFromSession = function(){
+  return async (dispatch) => {
+    const books = await axios.get('/api/cart');
+    console.log('thunk books', books.data);
+    dispatch(loadCart(books.data));
   }
 }
 
@@ -69,6 +86,10 @@ export default function(state = initialState, action) {
       newState.books = []
       break
 
+    case LOAD_CART:
+      newState.books = action.books;
+      break;
+    
     default:
       return newState
   }

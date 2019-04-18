@@ -38,8 +38,6 @@ export default function(state = {}, action) {
     case GOT_ONE_BOOK:
       return action.book
     default:
-      return state
+      return state;
   }
 }
-// adding this comment to force a change and commit staging branch
-// adding this comment to force a change and commit session-cart off of staging

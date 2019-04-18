@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { removeBook } from '../store/cart'
-import { submitOrder } from '../store/cart'
+import { getCartFromSession, removeBook, submitOrder } from '../store/cart'
 /**
  * COMPONENT
  */
@@ -18,11 +17,17 @@ class Checkout extends Component {
   //   this.setState({books: this.props.books});
   // }
 
+  componentDidMount(){
+    this.props.loadCart();
+  }
+
   render() {
+    const {books} = this.props;
+    if(!books) books = [];
     return (
       
       <div>
-        {this.props.books.map(book => {
+        {books.map(book => {
           return (
             <div key={`book-${book.id}`}>
               <h2>{book.title}</h2>
@@ -47,6 +52,7 @@ const mapState = state => {
 }
 
 const mapDispatch = (dispatch) => ({
+  loadCart: () => dispatch(getCartFromSession()),
   removeBook: (book) => dispatch(removeBook(book)),
   submitOrder: (books, user) => dispatch(submitOrder(books, user))
 })
