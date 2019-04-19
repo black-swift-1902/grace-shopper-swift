@@ -1,55 +1,76 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { removeBook } from '../store/cart'
-import { submitOrder } from '../store/cart'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {
+  getCartFromSession,
+  removeBookThunk,
+  submitOrder,
+  loadCart
+} from '../store/cart'
 /**
  * COMPONENT
  */
 
 class Checkout extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     // this.state = {
     //   books: []
     // };
   }
 
-  // async componentDidMount() {
-  //   this.setState({books: this.props.books});
-  // }
+  async componentDidMount() {
+    this.setState({books: this.props.books})
+  }
+
+  componentDidMount() {
+    this.props.loadCart()
+  }
 
   render() {
+    let {books} = this.props
+    if (!books) books = []
     return (
-      
       <div>
-        {this.props.books.map(book => {
+        {books.map((book, index) => {
           return (
-            <div key={`book-${book.id}`}>
+            <div /*key={`book-${book.id}`}*/>
               <h2>{book.title}</h2>
-              <button onClick = {() => this.props.removeBook(book)} >delete</button>
+              <button
+                onClick={() => {
+                  this.props.removeBookThunk(index)
+                  this.props.loadCart()
+                }}
+              >
+                delete
+              </button>
               <img src={book.imgUrl} />
               <h4>{book.price}</h4>
             </div>
           )
         })}
-        <button onClick = {() => this.props.submitOrder(this.props.books, this.props.user)} >Submit Order</button>
+        <button
+          onClick={() =>
+            this.props.submitOrder(this.props.books, this.props.user)
+          }
+        >
+          Submit Order
+        </button>
       </div>
     )
   }
 }
 
 const mapState = state => {
-
   return {
     books: state.cart.books,
     user: state.user
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  removeBook: (book) => dispatch(removeBook(book)),
+const mapDispatch = dispatch => ({
+  loadCart: () => dispatch(getCartFromSession()),
+  removeBookThunk: index => dispatch(removeBookThunk(index)),
   submitOrder: (books, user) => dispatch(submitOrder(books, user))
 })
-
 
 export default connect(mapState, mapDispatch)(Checkout)
