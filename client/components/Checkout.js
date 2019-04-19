@@ -19,7 +19,6 @@ class Checkout extends Component {
   }
 
   async componentDidMount() {
-    console.log(`in component did mount!`)
     this.setState({books: this.props.books})
   }
 
@@ -62,7 +61,6 @@ class Checkout extends Component {
 }
 
 const mapState = state => {
-  console.log('mapping state to props! here is state:', state)
   return {
     books: state.cart.books,
     user: state.user
