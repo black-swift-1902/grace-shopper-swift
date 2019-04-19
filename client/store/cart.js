@@ -40,10 +40,7 @@ const loadCart = function(books) {
 }
 
 export const addToCart = function(book) {
-  console.log('here!!! ')
-  console.log('addToCartThunk', book)
   return async dispatch => {
-    await console.log('here!!!2 ')
     const books = await axios.post('/api/cart', book)
     dispatch(addBook(books))
   }
@@ -52,7 +49,6 @@ export const addToCart = function(book) {
 export const getCartFromSession = function() {
   return async dispatch => {
     const books = await axios.get('/api/cart')
-    console.log('thunk books', books.data)
     dispatch(loadCart(books.data))
   }
 }
@@ -105,6 +101,5 @@ export default function(state = initialState, action) {
     default:
       return newState
   }
-  console.log(`hello! newState: `, newState)
   return newState
 }

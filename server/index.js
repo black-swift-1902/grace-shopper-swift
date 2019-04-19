@@ -64,13 +64,13 @@ const createApp = () => {
   app.use(passport.session())
 
   app.use((req, res, next) => {
-    if (!req.session.cart){
-      req.session.cart = {};
-      req.session.cart.books = [];
-      req.session.cart.user = {};
-    } 
+    if (!req.session.cart) {
+      req.session.cart = {}
+      req.session.cart.books = []
+      req.session.cart.user = {}
+    }
     next() // needed to continue through express middleware
-  });
+  })
 
   // auth and api routes
   app.use('/auth', require('./auth'))

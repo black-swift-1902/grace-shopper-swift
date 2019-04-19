@@ -9,7 +9,8 @@ async function seed() {
 
   const books = await Promise.all([
     Book.create({
-      title: 'Cracking the Coding Interview: 189 Programming Questions and Solutions',
+      title:
+        'Cracking the Coding Interview: 189 Programming Questions and Solutions',
       imgUrl: 'https://tinyurl.com/yyudjeaq',
       price: 32,
       description: `Cracking the Coding Interview, 6th Edition is here to help you through this process, teaching you what you need to know and enabling you to perform at your very best. I've coached and interviewed hundreds of software engineers. The result is this book.`
@@ -18,13 +19,16 @@ async function seed() {
       title: 'HTML, CSS, and JavaScript Mobile Development For Dummies',
       imgUrl: 'https://tinyurl.com/y5drwv5w',
       price: 29.79,
-      description: 'HTML, CSS, and JavaScript Mobile Web Development For Dummies makes it easy to start developing great sites for mobile devices.'
+      description:
+        'HTML, CSS, and JavaScript Mobile Web Development For Dummies makes it easy to start developing great sites for mobile devices.'
     }),
     Book.create({
-      title: 'The Art of Computer Programming, Volume 1, Fascicle 1: MMIX -- A RISC Computer for the New Millennium',
+      title:
+        'The Art of Computer Programming, Volume 1, Fascicle 1: MMIX -- A RISC Computer for the New Millennium',
       imgUrl: 'https://tinyurl.com/y5p4f88g',
       price: 28.58,
-      description: 'The Art of Computer Programming (TAOCP) is a comprehensive monograph written by Donald Knuth that covers many kinds of programming algorithms and their analysis!'
+      description:
+        'The Art of Computer Programming (TAOCP) is a comprehensive monograph written by Donald Knuth that covers many kinds of programming algorithms and their analysis!'
     })
   ])
 
