@@ -1,4 +1,4 @@
-export const LOAD_CART = 'LOAD_CART';
+export const LOAD_CART = 'LOAD_CART'
 import axios from 'axios'
 const ADD_BOOK = 'ADD_BOOK'
 const REMOVE_BOOK = 'REMOVE_BOOK'
@@ -18,10 +18,10 @@ const addBook = function(book) {
   }
 }
 
-export const removeBook = function(book) {
+export const removeBook = function(index) {
   return {
     type: REMOVE_BOOK,
-    book
+    index
   }
 }
 
@@ -32,38 +32,47 @@ const clearCart = function(books) {
   }
 }
 
-const loadCart = function(books){
+const loadCart = function(books) {
   return {
-      type: LOAD_CART,
-      books
+    type: LOAD_CART,
+    books
   }
 }
 
-export const addToCart = function(book){
-  console.log('here!!! ');
-  console.log('addToCartThunk', book);
-  return async (dispatch) => {
-
-    const books = await axios.post('/api/cart', book);
-    dispatch(addBook(books));
+export const addToCart = function(book) {
+  return async dispatch => {
+    const books = await axios.post('/api/cart', book)
+    dispatch(addBook(books))
   }
 }
 
-export const getCartFromSession = function(){
-  return async (dispatch) => {
-    const books = await axios.get('/api/cart');
-    dispatch(loadCart(books));
+export const getCartFromSession = function() {
+  return async dispatch => {
+    const books = await axios.get('/api/cart')
+    dispatch(loadCart(books.data))
   }
 }
 
-export const submitOrder = function (books, user) {
-  return async (dispatch) => {
+export const removeBookThunk = function(index) {
+  try {
+    return async dispatch => {
+      await axios.delete(`/api/cart/${index}`)
+      dispatch(removeBook(index))
+    }
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const submitOrder = function(books, user) {
+  return async dispatch => {
     const order = {
       user,
       books: books.map(book => book.id)
     }
-    await axios.post('/api/orders', order);
-    dispatch(clearCart(books));
+    await axios.post('/api/orders', order)
+    dispatch(clearCart(books))
+    await axios.delete('/api/cart')
   }
 }
 
@@ -71,14 +80,14 @@ export const submitOrder = function (books, user) {
  * REDUCER
  */
 export default function(state = initialState, action) {
-  const newState = {...state}
+  let newState = {...state, books: [...state.books]}
   switch (action.type) {
     case ADD_BOOK:
       newState.books = [...newState.books, action.book]
       break
 
     case REMOVE_BOOK:
-      newState.books = newState.books.filter(book => book.id !== action.book.id)
+      newState.books.splice(action.index, 1)
       break
 
     case CLEAR_CART:
@@ -86,9 +95,9 @@ export default function(state = initialState, action) {
       break
 
     case LOAD_CART:
-      newState.books = action.books;
-      break;
-    
+      newState.books = action.books
+      break
+
     default:
       return newState
   }
