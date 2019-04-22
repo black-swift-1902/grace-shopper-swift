@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getBooks} from '../store'
 import { Link } from 'react-router-dom'
+import SingleBookCard from './SingleBookCard'
 
 /**
  * COMPONENT
@@ -23,22 +24,15 @@ export class AllBooks extends Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.props.booksArr.map(book => {
-          let id = book.id
-          return (
-            <div key={`book-${id}`}>
-            <Link to={`/books/${id}`}>
-                <h1>{book.title}</h1>
-                <p><img src={book.imgUrl} /></p>
-                <h4>{book.price}</h4>
-            </Link>
-            </div>
-          )
-        })}
+    return <div>
+        <h1 className="is-size-2 has-text-centered">Our Books</h1>
+        <hr />
+        <div className="columns">
+          {this.props.booksArr.map(book => {
+            return <SingleBookCard key={`book-${book.id}`} book={book} className="column is-one-third has-text-centered" />
+          })}
+        </div>
       </div>
-    )
   }
 }
 
