@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getBooks} from '../store'
-import { Link } from 'react-router-dom'
 import SingleBookCard from './SingleBookCard'
 
 /**
@@ -10,17 +9,9 @@ import SingleBookCard from './SingleBookCard'
  */
 
 export class AllBooks extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      booksArr: []
-    }
-  }
 
-  // const {booksArr} = props
-
-  async componentDidMount() {
-    await this.props.getBooks()
+  componentDidMount() {
+    this.props.getBooks()
   }
 
   render() {

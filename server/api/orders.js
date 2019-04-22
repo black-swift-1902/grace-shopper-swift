@@ -5,23 +5,8 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const order = await Order.findAll({
-      order: [['id', 'ASC']],
-      include: [
-        {
-          model: Book
-        }
-      ]
-    })
-    res.json(order)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.get('/user/:userId', async (req, res, next) => {
-  try {
-    const order = await Order.findByUserId(req.params.userId)
+    if(!req.session.userId) res.sendStatus(404);
+    const order = await Order.findByUserId(req.session.userId)
     res.json(order)
   } catch (err) {
     next(err)
