@@ -5,6 +5,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
+    if(!req.session.cart) req.session.cart = [];
     res.send(req.session.cart)
   } catch (err) {
     next(err)

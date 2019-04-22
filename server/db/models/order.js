@@ -16,6 +16,7 @@ const Order = db.define('order', {
 Order.findByUserId = function (userId) {
   try {
     return Order.findAll({
+      order: [['updatedAt', 'DESC']],
       where: {
         userId,
         submitted: true
