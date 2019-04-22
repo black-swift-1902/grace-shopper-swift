@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const {Order, Book} = require('../db/models')
-const {Op} = require('sequelize');
+const { Order, Book, Order_log } = require('../db/models')
+const { Op } = require('sequelize');
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -47,17 +47,27 @@ router.get('/:orderId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  const books = await Book.findAll({
-    where: {
-      id: req.body.books
-    }
-  })
   try {
-    await Order.create().then(async result => {
-      await result.addBooks(books);
-      await result.setUser(req.body.user.id);
-      res.status(201).send(result);
-    })
+    if (!req.session.userId) {
+      await Order.create({ submitted: true })
+        .then(order => {
+          req.session.cart.forEach(async book => 
+            await order.addBook(book.id, { through: { quantity: book.order_log.quantity }}));
+        })
+    }
+    else {
+      Order.update(
+        { submitted: true },
+        {
+          where: {
+            userId: req.session.userId,
+            submitted: false
+          }
+        }
+      )
+    }
+    req.session.cart = [];
+    res.status(201).send();
   } catch (err) {
     next(err)
   }

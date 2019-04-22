@@ -4,17 +4,15 @@ const ADD_BOOK = 'ADD_BOOK'
 const REMOVE_BOOK = 'REMOVE_BOOK'
 const CLEAR_CART = 'CLEAR_CART'
 
-const initialState = {
-  books: []
-}
+const initialState = []
 
 /**
  * ACTION CREATORS
  */
-const addBook = function(book) {
+const addBook = function(book_id) {
   return {
     type: ADD_BOOK,
-    book
+    book_id
   }
 }
 
@@ -25,10 +23,9 @@ export const removeBook = function(index) {
   }
 }
 
-const clearCart = function(books) {
+const clearCart = function() {
   return {
-    type: CLEAR_CART,
-    books
+    type: CLEAR_CART
   }
 }
 
@@ -41,15 +38,15 @@ const loadCart = function(books) {
 
 export const addToCart = function(book) {
   return async dispatch => {
-    const books = await axios.post('/api/cart', book)
-    dispatch(addBook(books))
+    await axios.post('/api/cart', book)
+    // dispatch(loadCart(book))
   }
 }
 
 export const getCartFromSession = function() {
   return async dispatch => {
-    const books = await axios.get('/api/cart')
-    dispatch(loadCart(books.data))
+    const {data} = await axios.get('/api/cart')
+    dispatch(loadCart(data))
   }
 }
 
@@ -64,15 +61,10 @@ export const removeBookThunk = function(index) {
   }
 }
 
-export const submitOrder = function(books, user) {
+export const submitOrder = function() {
   return async dispatch => {
-    const order = {
-      user,
-      books: books.map(book => book.id)
-    }
-    await axios.post('/api/orders', order)
-    dispatch(clearCart(books))
-    await axios.delete('/api/cart')
+    await axios.post('/api/orders');
+    dispatch(clearCart());
   }
 }
 
@@ -80,26 +72,27 @@ export const submitOrder = function(books, user) {
  * REDUCER
  */
 export default function(state = initialState, action) {
-  let newState = {...state, books: [...state.books]}
+  let newState = [...state];
   switch (action.type) {
     case ADD_BOOK:
-      newState.books = [...newState.books, action.book]
+      // if(newState[action.book_id]) newState[action.book_id]++;
       break
 
     case REMOVE_BOOK:
-      newState.books.splice(action.index, 1)
+    newState.splice(action.index, 1);
       break
 
     case CLEAR_CART:
-      newState.books = []
+      newState = [];
+      console.log('clear');
       break
 
     case LOAD_CART:
-      newState.books = action.books
+      newState = action.books
       break
 
     default:
-      return newState
+      return state
   }
   return newState
 }
