@@ -14,7 +14,7 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "grace-shopper-swift-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "books-a-lot-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
@@ -24,7 +24,7 @@ script:
  deploy:
    skip_cleanup: true # prevents travis from deleting the build
    provider: heroku
-   app: grace-shopper-swift # see README
+   app: books-a-lot-co # see README
    api_key:
-     secure: UyMA6l93HOvginL8JUlJVYDaTjgOmnln90IGNoDWdCBR177rE9+IuidwPc+qNLFoaPzQQ2XdYMXb/wwSXWuN/fyp/JliSuVqTUGgxY4sjCUw1yyQnSlLfdSojIXfbVKpEWGP6C6bhax0q9n5G8sGoJvbXbDh57Tqr5mHLVC/dXT0UqVQholZG/+zGkCh0TYxXcYnKaO+OpcC9JHv8VrQcyoGFDLuzNywVHi4aoxrcJ5+QjLRj3CqwO1C7sGjSMFcwic3vxFZBHTx2/KvxBh4PuuXLJaZovZHWs2GDSdcUykD8EYi9ootROH7q7gAWxsSgN2B779n7kF219mZPHXM6ChjN6F0byUVKKI4chFHEAKP3sP6DOuo5wC6X3bcWMJIsbznZ2u9gyvlI2xyQ3GeikDF8R+dv/VAAFn/n1OnWdSg2Z8b1qWNu8ZW+XgMYvRBcsVpVfmmsEgwOBk/kfA2FPcZvxV2SR1kNbwmK/8HvWU/7pXpJ0VhVt9DmrbAh3f7HQB6TCdxNiWoBITN2dhQ8+QyqOjIuV6Tsm+J6+73xZivZNMKaPykzrg3BoUi8G29kk564FpCLC1YNCdU2lGP/TzBozoIHI8TIpL80QHuWKhzONMFTZtghiPdIVJk5BGHfksz290jYqTlTCEIXjkFIPkOWSUJY65Uxagg5eB7g5c=
-# ignore me pls
+     secure: tBQq47LpjO//b0Y3jTkFOdP2m9K6PZOB4ryLvHjlMoQt3GUgz08RSIGeEDpoArQ/t5ZA75biffyxWrwb52/c8IAHKdhIchwKjJ9MIhHLQr+2itGuW3nHtuzZIIKg6XubrNKauclKSgSh/BCUqm68o06XlSUUkarouYq4ZG1vQBrop8BdG186U7iBN0QtE03feZncKYEfBzW84nhU2c6qE8qYnk3sq0AQHSUO2IG6gNN2N/ZkJjVudZvzSN2yxjpKalLC26NzdGRUUCF6mtJ6S/PmJx1aVjZBR7mNU6VqnTupjXqhWN9pKsEJyu86ii120Nf/23FCY1ruRuEwQw4qUXQHv3zZOTGrrA0RCEz33PSJ4bLjXbg1+K2JY0R+DA1k3cxC/GruZ/aeeYCpDcYgduDo4hMsAkQdUfhN5QZdORncELLb1LNxJj3oIJhd+Wqt6osyEBXyXhXV0ETAlfsApV/mOiklOK19SX4XV51AOkjj7AWkpXd+siz92C/IiCIXsuu3l7ZLEIUDB0qVob+MySiTfMnnRRxd9HrmhgUml8VRgDgvhZlDrXv83uQG3wIluEwDxK/Li0YTrIn007bRvLjX3CTFV09RTWorXp29T8vEPbFLbXjKzFFMKkdAruH8x/DOpc/Vn1ArWzL3FFTNH/9z+J4r6e3H6mmNSOEMVkU=
+#testing!
