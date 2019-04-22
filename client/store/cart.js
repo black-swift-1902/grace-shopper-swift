@@ -5,7 +5,6 @@ const REMOVE_BOOK = 'REMOVE_BOOK'
 const CLEAR_CART = 'CLEAR_CART'
 
 const initialState = []
-
 /**
  * ACTION CREATORS
  */
@@ -38,7 +37,9 @@ const loadCart = function(books) {
 
 export const addToCart = function(book) {
   return async dispatch => {
-    await axios.post('/api/cart', book)
+    await axios.post('/api/cart', book);
+    const {data} = await axios.get('/api/cart')
+    dispatch(loadCart(data))
   }
 }
 
