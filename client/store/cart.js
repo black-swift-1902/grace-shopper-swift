@@ -52,9 +52,9 @@ export const removeBookThunk = function (index) {
   }
 }
 
-export const submitOrder = function () {
+export const submitOrder = function (total) {
   return async dispatch => {
-    await axios.post('/api/orders');
+    await axios.post('/api/orders', total);
     dispatch(clearCart());
   }
 }

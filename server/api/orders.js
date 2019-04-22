@@ -32,9 +32,10 @@ router.get('/:orderId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+  console.log('body', req.body);
   try {
     if (!req.session.userId) {
-      await Order.create({ submitted: true })
+      await Order.create({ submitted: true, total: rNumber(req.body.total) })
         .then(order => {
           req.session.cart.forEach(async book => 
             await order.addBook(book.id, { through: { quantity: book.order_log.quantity }}));
@@ -43,7 +44,7 @@ router.post('/', async (req, res, next) => {
     }
     else {
       Order.update(
-        { submitted: true },
+        { submitted: true, total: Number(req.body.total) },
         {
           where: {
             userId: req.session.userId,
