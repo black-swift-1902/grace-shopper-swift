@@ -53,6 +53,7 @@ router.post('/', async (req, res, next) => {
         .then(order => {
           req.session.cart.forEach(async book => 
             await order.addBook(book.id, { through: { quantity: book.order_log.quantity }}));
+            return order;
         })
     }
     else {
