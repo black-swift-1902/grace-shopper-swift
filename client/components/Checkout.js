@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import {
   getCartFromSession,
   removeBookThunk,
-  submitOrder,
-  loadCart
+  submitOrder
 } from '../store/cart'
 /**
  * COMPONENT
@@ -13,13 +12,6 @@ import {
 class Checkout extends Component {
   constructor(props) {
     super(props)
-    // this.state = {
-    //   books: []
-    // };
-  }
-
-  async componentDidMount() {
-    this.setState({books: this.props.books})
   }
 
   componentDidMount() {
@@ -27,34 +19,37 @@ class Checkout extends Component {
   }
 
   render() {
-    let {books} = this.props
-    if (!books) books = []
+    let { books } = this.props;
+    console.log(this.props)
     return (
       <div>
         {books.map((book, index) => {
           return (
-            <div /*key={`book-${book.id}`}*/>
+            <div key={`book-${book.id}`}>
               <h2>{book.title}</h2>
               <button
                 onClick={() => {
-                  this.props.removeBookThunk(index)
-                  this.props.loadCart()
+                  this.props.removeBookThunk(index);
                 }}
               >
                 delete
               </button>
               <img src={book.imgUrl} />
               <h4>{book.price}</h4>
+              <h4>{book.order_log.quantity}</h4>
             </div>
           )
         })}
-        <button
-          onClick={() =>
-            this.props.submitOrder(this.props.books, this.props.user)
-          }
-        >
-          Submit Order
-        </button>
+        {
+          books.length ? <button
+            onClick={() =>
+              this.props.submitOrder()
+            }
+          >
+            Submit Order
+        </button> : undefined
+        }
+
       </div>
     )
   }
@@ -62,7 +57,7 @@ class Checkout extends Component {
 
 const mapState = state => {
   return {
-    books: state.cart.books,
+    books: state.cart,
     user: state.user
   }
 }
@@ -70,7 +65,7 @@ const mapState = state => {
 const mapDispatch = dispatch => ({
   loadCart: () => dispatch(getCartFromSession()),
   removeBookThunk: index => dispatch(removeBookThunk(index)),
-  submitOrder: (books, user) => dispatch(submitOrder(books, user))
+  submitOrder: () => dispatch(submitOrder())
 })
 
 export default connect(mapState, mapDispatch)(Checkout)
