@@ -1,4 +1,3 @@
-const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
 
@@ -8,7 +7,7 @@ const Book = db.define('book', {
     allowNull: false
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.INTEGER
   },
   imgUrl: {
     type: Sequelize.STRING,

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {getOneBook} from '../store'
-import {Link} from 'react-router-dom'
 import {addToCart} from '../store/cart'
 
 class SingleBook extends Component {
@@ -17,7 +16,7 @@ class SingleBook extends Component {
       <div>
         <h2>{title}</h2>
         <img src={imgUrl} />
-        <h4>{price}</h4>
+        <h4>$ {(price/100).toFixed(2)}</h4>
         <p>{description}</p>
         <button onClick={() => this.props.addBookToCart(this.props.selectBook)}>
           Add To Cart

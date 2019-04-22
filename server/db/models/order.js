@@ -3,13 +3,13 @@ const db = require('../db')
 const Book = require('./book');
 
 const Order = db.define('order', {
-  date: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.fn('NOW')
-  },
   submitted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  total: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
