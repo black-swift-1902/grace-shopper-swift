@@ -39,7 +39,6 @@ const loadCart = function(books) {
 export const addToCart = function(book) {
   return async dispatch => {
     await axios.post('/api/cart', book)
-    // dispatch(loadCart(book))
   }
 }
 
@@ -74,9 +73,9 @@ export const submitOrder = function() {
 export default function(state = initialState, action) {
   let newState = [...state];
   switch (action.type) {
-    case ADD_BOOK:
+    // case ADD_BOOK:
       // if(newState[action.book_id]) newState[action.book_id]++;
-      break
+      // break
 
     case REMOVE_BOOK:
     newState.splice(action.index, 1);

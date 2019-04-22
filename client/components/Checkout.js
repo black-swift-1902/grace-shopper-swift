@@ -20,6 +20,7 @@ class Checkout extends Component {
 
   render() {
     let { books } = this.props;
+    console.log(this.props)
     return (
       <div>
         {books.map((book, index) => {
