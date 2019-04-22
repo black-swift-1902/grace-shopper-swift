@@ -3,13 +3,10 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import {getCartFromSession} from '../store/cart'
+import {getCartFromSession, clearCart} from '../store/cart'
 
 
 class Navbar extends React.Component{
-  constructor(props) {
-    super(props)
-  }
   componentDidMount() {
     this.props.loadCart()
   }
@@ -62,6 +59,7 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+      dispatch(clearCart())
     },
     loadCart(){
       dispatch(getCartFromSession())
