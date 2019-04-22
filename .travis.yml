@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - node # uses most recent stable node version
+services:
+  - postgresql # starts up postgres
+addons:
+  postgresql: '9.6' # highest available postgres version on Travis
+dist: trusty # uses trusty environment
+sudo: false # when on trusty, uses Docker containers for speed
+notifications:
+  email:
+    on_success: change # default: change (only when going from broken to fixed)
+    on_failure: always # default: always (which is annoying, as it should be)
+install:
+  - npm ci # faster, goes only from package-lock
+before_script:
+  - psql -c 'create database "grace-shopper-swift-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+script:
+  - npm test # test the code
+  - npm run build-client # make the bundle
+
+ before_deploy:
+   - rm -rf node_modules # omit from the tarball, since we skip cleanup
+ deploy:
+   skip_cleanup: true # prevents travis from deleting the build
+   provider: heroku
+   app: grace-shopper-swift # see README
+   api_key:
+     secure: UyMA6l93HOvginL8JUlJVYDaTjgOmnln90IGNoDWdCBR177rE9+IuidwPc+qNLFoaPzQQ2XdYMXb/wwSXWuN/fyp/JliSuVqTUGgxY4sjCUw1yyQnSlLfdSojIXfbVKpEWGP6C6bhax0q9n5G8sGoJvbXbDh57Tqr5mHLVC/dXT0UqVQholZG/+zGkCh0TYxXcYnKaO+OpcC9JHv8VrQcyoGFDLuzNywVHi4aoxrcJ5+QjLRj3CqwO1C7sGjSMFcwic3vxFZBHTx2/KvxBh4PuuXLJaZovZHWs2GDSdcUykD8EYi9ootROH7q7gAWxsSgN2B779n7kF219mZPHXM6ChjN6F0byUVKKI4chFHEAKP3sP6DOuo5wC6X3bcWMJIsbznZ2u9gyvlI2xyQ3GeikDF8R+dv/VAAFn/n1OnWdSg2Z8b1qWNu8ZW+XgMYvRBcsVpVfmmsEgwOBk/kfA2FPcZvxV2SR1kNbwmK/8HvWU/7pXpJ0VhVt9DmrbAh3f7HQB6TCdxNiWoBITN2dhQ8+QyqOjIuV6Tsm+J6+73xZivZNMKaPykzrg3BoUi8G29kk564FpCLC1YNCdU2lGP/TzBozoIHI8TIpL80QHuWKhzONMFTZtghiPdIVJk5BGHfksz290jYqTlTCEIXjkFIPkOWSUJY65Uxagg5eB7g5c=
+# ignore me pls
