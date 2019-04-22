@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartFromSession, removeBookThunk, submitOrder} from '../store/cart'
+import {priceSum} from '../util'
 /**
  * COMPONENT
  */
@@ -58,10 +59,7 @@ class Checkout extends Component {
   }
 }
 
-const priceSum = function(total, book) {
-  total += book.price * book.order_log.quantity
-  return total
-}
+
 
 const mapState = state => {
   return {
