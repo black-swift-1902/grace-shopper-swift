@@ -32,7 +32,8 @@ const loadCart = function (books) {
 export const addToCart = function (book) {
   return async dispatch => {
     await axios.post('/api/cart', book);
-    const { data } = await axios.get('/api/cart')
+    const { data } = await axios.get('/api/cart');
+    data.message = 'Item added to cart';
     dispatch(loadCart(data))
   }
 }
@@ -72,7 +73,6 @@ export default function (state = initialState, action) {
 
     case CLEAR_CART:
       newState = [];
-      console.log('clear');
       break
 
     case LOAD_CART:

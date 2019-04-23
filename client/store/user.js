@@ -24,7 +24,11 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+    const user = res.data;
+    const {data} = await axios.get('/api/orders');
+    user.orderHistory = data;
+    dispatch(getUser(user))
+    dispatch(getUser(user || defaultUser))
   } catch (err) {
     console.error(err)
   }
@@ -40,7 +44,10 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
-    dispatch(getUser(res.data))
+    const user = res.data;
+    const {data} = await axios.get('/api/orders');
+    user.orderHistory = data;
+    dispatch(getUser(user))
     history.push('/books')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)

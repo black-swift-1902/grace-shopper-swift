@@ -11,16 +11,21 @@ class SingleBook extends Component {
   }
 
   render() {
-    const {title, imgUrl, price, description} = this.props.selectBook
+    const {title, imgUrl, price, description} = this.props.selectBook;
+    const message = this.props.message;
     return (
       <div>
         <h2>{title}</h2>
         <img src={imgUrl} />
         <h4>$ {(price/100).toFixed(2)}</h4>
         <p>{description}</p>
-        <button onClick={() => this.props.addBookToCart(this.props.selectBook)}>
+        <button onClick={() => {
+          this.props.addBookToCart(this.props.selectBook);
+          
+        }}>
           Add To Cart
         </button>
+        {message && <h5>{message}</h5>}
       </div>
     )
   }
@@ -28,7 +33,8 @@ class SingleBook extends Component {
 
 const mapState = state => {
   return {
-    selectBook: state.selectBook
+    selectBook: state.selectBook,
+    message: state.cart.message
   }
 }
 
